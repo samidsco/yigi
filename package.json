@@ -1,0 +1,9 @@
+{
+  "name": "yigi",
+  "version": "1.0.0",
+  "description": "Starter kit for react app using Typescript",
+  "main": "index.js",
+  "repository": "git@github.com:samidsco/yigi.git",
+  "author": "Dmitry Trifonov <samid.sco@gmail.com>",
+  "license": "MIT"
+}
