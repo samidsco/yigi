@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+        "experimentalDecorators": true,
+        "jsx": "react",
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "noEmitOnError": true,
+        "preserveConstEnums": true,
+        "removeComments": false,
+        "sourceMap": true,
+        "target": "es5"
+    },
+    "exclude": [
+        "build",
+        ".vscode"
+    ]
+}

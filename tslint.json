@@ -1,0 +1,16 @@
+{
+    "rules": {
+        "indent": [true, "spaces"],
+        "curly": true,
+
+        "class-name": true,
+        "no-internal-module": true,
+        "no-unused-expression": true,
+        "no-var-keyword": true,
+        "no-trailing-whitespace": true,
+        "triple-equals": true,
+
+        "eofline": true,
+        "semicolon": false
+    }
+}
