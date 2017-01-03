@@ -132,7 +132,7 @@ function buildIndexHtmlFile() {
 
   const writeIndexHtmlUsingManifests = (manifest: Array<string>): Promise<any> =>
     Promise.all([
-      promised(cb => fs.readFile(`${SRC_DIR}/index.dust`, 'utf8', cb)),
+      promised(cb => fs.readFile(`${SRC_DIR}/browser/index.dust`, 'utf8', cb)),
       promised(cb => mkdirp(BUILD_PUBLIC_DIR, cb)),
     ])
       .then(([content]) => dust.compile(content, 'index'))

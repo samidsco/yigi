@@ -68,7 +68,7 @@ const sourceMap = {
 
 const sourceMapFix = {
   test: /\.js$/,
-  loader: `${__dirname}/source-map-fix.ts`,
+  loader: `${__dirname}/../source-map-fix.ts`,
   include: BUILD_SRC_DIR,
 };
 
