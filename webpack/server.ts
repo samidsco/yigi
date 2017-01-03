@@ -22,11 +22,11 @@ app.use(webpackHotMiddleware(compiler));
 app.use('/fixtures', express.static(`${BUILD_SRC_DIR}/tests/fixtures`));
 app.use(['/static', '/*'], express.static(BUILD_PUBLIC_DIR));
 
-app.listen(3000, 'localhost', function() {
+app.listen(3000, '0.0.0.0', function() {
   if (process.send) {
     process.send('express ready');
   }
 
-  console.log('http://localhost:3000');
-  console.log('http://localhost:3000/webpack-dev-server');
+  console.log('http://0.0.0.0:3000');
+  console.log('http://0.0.0.0:3000/webpack-dev-server');
 });
