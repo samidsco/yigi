@@ -1,4 +1,38 @@
 import * as path from 'path'
+import * as nconf from 'nconf'
+
+nconf.env('__');
+nconf.file('./yigiconfig.json');
+
+interface IYigiAppConfig {
+  apps: IYigiAppConfigItem[]
+}
+
+interface IYigiAppConfigItem {
+  title: string
+  name: string
+  browser?: boolean
+  server?: boolean
+  desktop?: boolean
+  native?: boolean
+}
+
+nconf.defaults({
+  apps: [
+    {
+      title: 'App 1',
+      name: 'app_1',
+      browser: true,
+      server: false,
+      desktop: false,
+      native: false
+    }
+  ]
+});
+
+const yigiconfig: IYigiAppConfig = nconf.get();
+
+export const YIGI_APPS: IYigiAppConfigItem[] = yigiconfig.apps;
 
 export const ENV: string = process.env.NODE_ENV || 'development';
 export const PRODUCTION: boolean = ENV === 'production';

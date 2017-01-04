@@ -10,6 +10,8 @@ import {
   BUILD_PUBLIC_DIR,
   BUILD_SRC_DIR,
   WEBPACK_PUBLIC_PATH,
+  YIGI_APPS,
+  IYigiAppConfigItem
 } from '../../config'
 
 const {
@@ -50,37 +52,37 @@ interface IConfig<IEntry> {
   };
 };
 
-const babel = {
+const babel = (appName) => ({
   test: /\.js$/,
   loader: 'babel',
-  include: BUILD_SRC_DIR,
+  include: `${BUILD_SRC_DIR}/${appName}`,
   query: {
     presets: ['es2015'],
     plugins: <string | any>['static-fs'],
   }
-};
+});
 
-const sourceMap = {
+const sourceMap = (appName) => ({
   test: /\.js$/,
   loader: 'source-map',
-  include: [BUILD_SRC_DIR],
-};
+  include: [`${BUILD_SRC_DIR}/${appName}`],
+});
 
-const sourceMapFix = {
+const sourceMapFix = (appName) => ({
   test: /\.js$/,
-  loader: `${__dirname}/../source-map-fix.ts`,
-  include: BUILD_SRC_DIR,
-};
+  loader: `${__dirname}/source-map-fix.ts`,
+  include: `${BUILD_SRC_DIR}/${appName}`,
+});
 
-export default function <Entry>(): IConfig<Entry> {
+export default function <Entry>(yigiApp: IYigiConfigItem): IConfig<Entry> {
   const config = {
     target: 'web',
     // devtool: '#source-map',
     entry: <Entry>{},
     plugins: [],
     output: <IOutput>{
-      path: BUILD_PUBLIC_DIR,
-      publicPath: WEBPACK_PUBLIC_PATH,
+      path: `${BUILD_PUBLIC_DIR}/${yigiApp.name}`,
+      publicPath: `${WEBPACK_PUBLIC_PATH}/${yigiApp.name}`,
       filename: '[name].js',
       chunkFilename: '[name].js',
     },
@@ -96,7 +98,7 @@ export default function <Entry>(): IConfig<Entry> {
     },
   };
 
-  config.module.loaders.push(babel);
+  config.module.loaders.push(babel(yigiApp.name));
 
   if (DEVELOPMENT) {
     // configure hot reload for development
@@ -114,10 +116,10 @@ export default function <Entry>(): IConfig<Entry> {
     ]);
   }
 
-  // if (!PRODUCTION) {
-  //   config.module.preLoaders.push(sourceMap);
-  //   config.module.loaders.push(sourceMapFix);
-  // }
+  if (!PRODUCTION) {
+    config.module.preLoaders.push(sourceMap(yigiApp.name));
+    config.module.loaders.push(sourceMapFix(yigiApp.name));
+  }
 
   if (PRODUCTION) {
     // config.devtool = 'source-map';

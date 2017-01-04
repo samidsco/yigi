@@ -1,32 +1,41 @@
-const webpack = require('webpack');
-const express = require('express');
+import * as path from 'path'
+import * as webpack from 'webpack'
+import * as express from 'express'
 const yargs = require('yargs').argv;
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
 
-import config from './config/app';
+import configs from './config/apps';
 import stats from './stats';
 import { BUILD_PUBLIC_DIR, BUILD_SRC_DIR, WEBPACK_PUBLIC_PATH } from '../config';
 
-const app = express();
-const compiler = webpack(config);
+let portNumber: number = 3000;
 
-app.use(webpackDevMiddleware(compiler, {
-  stats,
-  noInfo: !yargs.verbose,
-  publicPath: WEBPACK_PUBLIC_PATH,
-}));
+function startWebpackServer(config) {
+  const app = express();
+  const compiler = webpack(config);
 
-app.use(webpackHotMiddleware(compiler));
+  app.use(webpackDevMiddleware(compiler, {
+    stats,
+    noInfo: !yargs.verbose,
+    publicPath: path.join(WEBPACK_PUBLIC_PATH,`browser/${config.appName}`)
+  }));
 
-app.use('/fixtures', express.static(`${BUILD_SRC_DIR}/tests/fixtures`));
-app.use(['/static', '/*'], express.static(BUILD_PUBLIC_DIR));
+  app.use(webpackHotMiddleware(compiler));
 
-app.listen(3000, '0.0.0.0', function() {
-  if (process.send) {
-    process.send('express ready');
-  }
+  app.use('/fixtures', express.static(`${config.appBuildSrcDir}/tests/fixtures`));
+  app.use(['/static', '/*'], express.static(path.join(BUILD_PUBLIC_DIR,`browser/${config.appName}`));
 
-  console.log('http://0.0.0.0:3000');
-  console.log('http://0.0.0.0:3000/webpack-dev-server');
-});
+  app.listen(portNumber, '0.0.0.0', function() {
+    if (process.send) {
+      process.send('express ready');
+    }
+
+    console.log(`http://0.0.0.0:${portNumber}`);
+    console.log(`http://0.0.0.0:${portNumber}/webpack-dev-server`);
+  });
+  
+  portNumber++;
+}
+
+_.map(configs, startWebpackServer)
