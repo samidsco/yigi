@@ -1,14 +1,13 @@
 import * as path from 'path'
 import * as nconf from 'nconf'
 
-nconf.env('__');
 nconf.file('./yigiconfig.json');
 
-interface IYigiAppConfig {
-  apps: IYigiAppConfigItem[]
+export interface IYigiAppConfig {
+  apps: IYigiConfigItem[]
 }
 
-interface IYigiAppConfigItem {
+export interface IYigiConfigItem {
   title: string
   name: string
   browser?: boolean
@@ -30,9 +29,8 @@ nconf.defaults({
   ]
 });
 
-const yigiconfig: IYigiAppConfig = nconf.get();
 
-export const YIGI_APPS: IYigiAppConfigItem[] = yigiconfig.apps;
+export const YIGI_APPS: IYigiConfigItem[] = nconf.get('apps');
 
 export const ENV: string = process.env.NODE_ENV || 'development';
 export const PRODUCTION: boolean = ENV === 'production';

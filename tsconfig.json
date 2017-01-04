@@ -1,17 +1,33 @@
 {
-    "compilerOptions": {
-        "experimentalDecorators": true,
-        "jsx": "react",
-        "module": "commonjs",
-        "moduleResolution": "node",
-        "noEmitOnError": true,
-        "preserveConstEnums": true,
-        "removeComments": false,
-        "sourceMap": true,
-        "target": "es5"
-    },
-    "exclude": [
-        "build",
-        ".vscode"
-    ]
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "jsx": "react",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "noEmitOnError": true,
+    "preserveConstEnums": true,
+    "removeComments": false,
+    "sourceMap": true,
+    "target": "es5",
+    "baseUrl": ".",
+    "paths": {
+      "shared/*": [
+        "src/shared/*"
+      ],
+      "common/*": [
+        "src/common/*"
+      ],
+      "browser/*": [
+        "src/browser/*"
+      ],
+      "server/*": [
+        "src/server/*"
+      ]
+    }
+  },
+  "exclude": [
+    "build",
+    ".vscode",
+    ".idea"
+  ]
 }

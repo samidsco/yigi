@@ -1,20 +1,20 @@
 {
-  apps: [
+  "apps": [
     {
-      title: 'App 1',
-      name: 'app_1',
-      browser: true,
-      server: true,
-      desktop: false,
-      native: false
+      "title": "App 1",
+      "name": "app_1",
+      "browser": true,
+      "server": true,
+      "desktop": false,
+      "native": false
     },
     {
-      title: 'App 2',
-      name: 'app_2',
-      browser: true,
-      server: false,
-      desktop: false,
-      native: false
+      "title": "App 2",
+      "name": "app_2",
+      "browser": true,
+      "server": false,
+      "desktop": false,
+      "native": false
     }
   ]
 }

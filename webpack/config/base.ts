@@ -10,8 +10,7 @@ import {
   BUILD_PUBLIC_DIR,
   BUILD_SRC_DIR,
   WEBPACK_PUBLIC_PATH,
-  YIGI_APPS,
-  IYigiAppConfigItem
+  YIGI_APPS
 } from '../../config'
 
 const {
@@ -89,6 +88,7 @@ export default function <Entry>(yigiApp: IYigiConfigItem): IConfig<Entry> {
     resolve: {
       alias: {
         sinon: 'sinon/pkg/sinon.js',
+        shared: ''
       },
     },
     noParse: [/\/sinon\//],

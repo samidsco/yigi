@@ -9,5 +9,5 @@ app.use(frontend);
 app.get('*', errorHandler);
 
 app.listen(config.port, config.host, () => {
-  console.log(`Server started at http://${config.host}:${config.port}`);
+    console.log(`Server started at http://${config.host}:${config.port}`);
 });
